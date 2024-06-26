@@ -4,16 +4,17 @@ header:
 repos:
   meta-tegra:
     url: https://github.com/oe4t/meta-tegra
-    commit: 929d03d4a4c619b0a6b44cfd023423d13f229cd8
-    branch: master
+    branch: scarthgap-l4t-r35.x
     layers:
       .:
+
   meta-tegra-community:
     url: https://github.com/oe4t/meta-tegra-community
-    commit: a3e430e24d464b3684364bff82c20d56b6f085f2
+    branch: scarthgap-l4t-r35.x
+
+  meta-swupdate:
+    url: https://github.com/sbabic/meta-swupdate
     branch: master
-    layers:
-      .:
 
 local_conf_header:
   tegra: |
@@ -27,3 +28,19 @@ local_conf_header:
     DISTRO_FEATURES_EXTRA += "opengl seccomp"
     CUDA_GCCVERSION = "8.%"
     LICENSE_FLAGS_ACCEPTED:append = " commercial_faad2 commercial_x264"
+
+  deepstream-demo: |
+    CORE_IMAGE_EXTRA_INSTALL:append = " deepstream-6.3-pyds-nvdsanalytics-demo"
+    # Remove 'blank' packageconfig from
+    # https://github.com/yoctoproject/poky/blob/e575d02196b0013c25f8064e4dbe3fc2a0ef72d0/meta/recipes-graphics/x11-common/xserver-nodm-init_3.0.bb#L25
+    # to avoid screen blanking
+    PACKAGECONFIG:remove:pn-xserver-nodm-init = "blank"
+
+  swupdate-tegra: |
+    IMAGE_INSTALL:append = " swupdate"
+    USE_REDUNDANT_FLASH_LAYOUT = "1"
+    IMAGE_FSTYPES:append = " tar.gz"
+    SWUPDATE_CORE_IMAGE_NAME ?= "avocado-image-base"
+
+target:
+  swupdate-image-tegra
