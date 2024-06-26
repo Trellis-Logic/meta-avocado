@@ -1,4 +1,5 @@
 FILESEXTRAPATHS:prepend := "${THISDIR}/${PN}:"
+FILESEXTRAPATHS:prepend := "${THISDIR}/${PN}/files:"
 
 SRC_URI += " \
   file://peridio.json \
