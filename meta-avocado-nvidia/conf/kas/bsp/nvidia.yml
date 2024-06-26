@@ -9,7 +9,7 @@ repos:
     layers:
       .:
   meta-tegra-community:
-    url: htps://github.com/oe4t/meta-tegra-community
+    url: https://github.com/oe4t/meta-tegra-community
     commit: a3e430e24d464b3684364bff82c20d56b6f085f2
     branch: master
     layers:
